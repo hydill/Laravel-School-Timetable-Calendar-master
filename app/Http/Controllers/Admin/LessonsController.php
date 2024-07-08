@@ -39,7 +39,8 @@ class LessonsController extends Controller
     {
         $lesson = Lesson::create($request->all());
 
-        return redirect()->route('admin.lessons.index');
+        // return redirect()->route('admin.lessons.index')->with('success', 'Berhasil Menambahkan Pelajaran');
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Pelajaran');
     }
 
     public function edit(Lesson $lesson)
@@ -54,12 +55,61 @@ class LessonsController extends Controller
 
         return view('admin.lessons.edit', compact('classes', 'teachers', 'lesson'));
     }
+    public function updated_(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'konten' => 'max:255',
+        ]);
+
+        $lessonTime = Lesson::findOrFail($id);
+        $lessonTime->konten = $request->input('konten');
+        $lessonTime->save();
+
+
+        return redirect()->back()->with('success', 'Konten berhasil diperbarui');
+    }
+
+    public function updated(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'konten' => 'max:255',
+            'pdf_file' => 'nullable|mimes:pdf|max:2048', // validasi file PDF
+        ]);
+
+        $lessonTime = Lesson::findOrFail($id);
+        $lessonTime->konten = $request->input('konten');
+
+        // Mengelola unggahan file PDF
+        if ($request->hasFile('pdf_file')) {
+            $pdf = $request->file('pdf_file');
+            $pdfPath = $pdf->store('public/pdf_files'); // simpan file PDF
+
+            $lessonTime->pdf_path = $pdfPath; // menyimpan path PDF di database
+        }
+
+        $lessonTime->save();
+
+        // Mengirimkan pemberitahuan WhatsApp jika ada file PDF
+    
+        return redirect()->back()->with('success', 'Konten berhasil diperbarui');
+    }
+
+
 
     public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads', $fileName, ['disk' => 'public']);
+
+            // Menyimpan nama file ke dalam database atau atribut lainnya yang relevan
+            $lesson->file_path = $filePath;
+        }
+
         $lesson->update($request->all());
 
-        return redirect()->route('admin.lessons.index');
+        return redirect()->back()->with('success', 'Pelajaran Diperbarui');
     }
 
     public function show(Lesson $lesson)
@@ -77,7 +127,7 @@ class LessonsController extends Controller
 
         $lesson->delete();
 
-        return back();
+        return back()->with('success', 'Berhasil Menghapus Pelajaran');
     }
 
     public function massDestroy(MassDestroyLessonRequest $request)
@@ -85,5 +135,9 @@ class LessonsController extends Controller
         Lesson::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function detail()
+    {
     }
 }
