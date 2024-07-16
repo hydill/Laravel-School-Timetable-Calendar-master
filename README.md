@@ -1,4 +1,4 @@
-# Laravel 8 School Timetable Calendar
+# Laravel 8 SD Telkom Monitoring
 
 Demo-project showing how to use roles-permissions (students, teachers, admins), Eloquent Query Scopes and how to build a simple table-based timetable calendar without any JavaScript plugin.
 
@@ -26,9 +26,9 @@ Demo-project showing how to use roles-permissions (students, teachers, admins), 
 - Run __php artisan key:generate__
 - Run __php artisan migrate --seed__ (it has some seeded data for your testing)
 - That's it: launch the main URL. 
-- Admin's credentials: __admin@admin.com__ - __password__
-- Teacher's credentials: __teacher@teacher.com__ - __password__
-- Student's credentials: __student@student.com__ - __password__
+- Admin's credentials: __ayu@admin.com__ - __password__
+- Teacher's credentials: __Ayu@teacher.com__ - __password__
+  
 
 
 - - - - -
