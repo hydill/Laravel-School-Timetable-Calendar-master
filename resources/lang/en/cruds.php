@@ -40,12 +40,12 @@ return [
         ],
     ],
     'user'           => [
-        'title'          => 'Siswa',
-        'title_singular' => 'Siswa',
+        'title'          => 'Pengguna',
+        'title_singular' => 'Pengguna',
         'fields'         => [
             'id'                       => 'ID',
             'id_helper'                => '',
-            'name'                     => 'Name',
+            'name'                     => 'Nama',
             'name_helper'              => '',
             'email'                    => 'Email',
             'email_helper'             => '',
@@ -73,13 +73,13 @@ return [
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => '',
-            'teacher'           => 'Teacher',
+            'teacher'           => 'Guru',
             'teacher_helper'    => '',
-            'weekday'           => 'Weekday',
+            'weekday'           => 'Hari',
             'weekday_helper'    => '',
-            'start_time'        => 'Start Time',
+            'start_time'        => 'Jam Mulai',
             'start_time_helper' => '',
-            'end_time'          => 'End Time',
+            'end_time'          => 'Jam Berakhir',
             'end_time_helper'   => '',
             'created_at'        => 'Created at',
             'created_at_helper' => '',
@@ -97,7 +97,7 @@ return [
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => '',
-            'name'              => 'Name',
+            'name'              => 'Kelas',
             'name_helper'       => '',
             'created_at'        => 'Created at',
             'created_at_helper' => '',
@@ -118,4 +118,27 @@ return [
         ],
 
     ],
+
+    'siswa'         => [
+        'title'         => 'Siswa',
+        'fields'        => [
+            'id'            => 'ID',
+            'nis'           => 'NIS',
+            'named'          => 'Nama',
+            'gender'        => 'Jenis Kelamin',
+            'phone_number'  => 'Nomor WA Ortu',
+            'address'       => 'Alamat',
+            'class_id'      => 'Kelas',
+
+        ],
+    ],
+
+    'manage_class'      =>[
+        'title'         => 'Kelola Kelas',
+        'fields'        => [
+            'id'        => 'ID',
+            'about'     => 'Catatan',
+            'class_id'  => 'Kelas',
+        ]
+    ]
 ];

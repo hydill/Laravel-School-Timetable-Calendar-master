@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.role.title') }}
+        Lihat Peran
     </div>
 
     <div class="card-body">
@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-
+{{-- 
 <div class="card">
     <div class="card-header">
         {{ trans('global.relatedData') }}
@@ -68,6 +68,6 @@
             @includeIf('admin.roles.relationships.rolesUsers', ['users' => $role->rolesUsers])
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection

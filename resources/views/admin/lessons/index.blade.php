@@ -52,7 +52,7 @@
 
                             </td>
                             <td>
-                                {{ $lesson->id ?? '' }}
+                                {{ $loop->iteration ?? '' }}
                             </td>
                             <td>
                                 {{ $lesson->class->name ?? '' }}
@@ -61,7 +61,7 @@
                                 {{ $lesson->teacher->name ?? '' }}
                             </td>
                             <td>
-                                {{ $lesson->weekday ?? '' }}
+                                {{ $lesson->weekday_name ?? '' }}
                             </td>
                             <td>
                                 {{ $lesson->start_time ?? '' }}
@@ -139,7 +139,7 @@
 @endcan
 
   $.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 1, 'desc' ]],
+    order: [[ 1, 'asc' ]],
     pageLength: 100,
   });
   $('.datatable-Lesson:not(.ajaxTable)').DataTable({ buttons: dtButtons })

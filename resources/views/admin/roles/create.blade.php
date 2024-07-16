@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.role.title_singular') }}
+        Tambah {{ trans('cruds.role.title_singular') }}
     </div>
 
     <div class="card-body">

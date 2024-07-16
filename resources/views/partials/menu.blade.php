@@ -48,10 +48,10 @@
                                     <i class="fa-fw fas fa-user nav-icon">
 
                                     </i>
-                                    {{ trans('cruds.user.title') }}
+                                    Pengguna
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ route('admin.users.index') }}?role=3"
                                     class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
                                     <i class="fa-fw fas fa-user nav-icon">
@@ -68,7 +68,7 @@
                                     </i>
                                     Students
                                 </a>
-                            </li>
+                            </li> --}}
                         @endcan
                     </ul>
                 </li>
@@ -84,7 +84,7 @@
                     </a>
                 </li>
             @endcan
-            @can('lesson_access')
+            {{-- @can('lesson_access')
                 <li class="nav-item">
                     <a href="{{ route('admin.lessons.index') }}"
                         class="nav-link {{ request()->is('admin/lessons') || request()->is('admin/lessons/*') ? 'active' : '' }}">
@@ -92,6 +92,17 @@
 
                         </i>
                         {{ trans('cruds.lesson.title') }}
+                    </a>
+                </li>
+            @endcan --}}
+            @can('kelola_kelas')
+                <li class="nav-item">
+                    <a href="{{ route('admin.manage-class.index') }}"
+                        class="nav-link {{ request()->is('admin/manage_class') || request()->is('admin/manage_class/*') ? 'active' : '' }}">
+                        <i class="fa fa-users nav-icon">
+
+                        </i>
+                        {{ trans('cruds.manage_class.title') }}
                     </a>
                 </li>
             @endcan
@@ -102,7 +113,7 @@
                         <i class="fa-fw fas fa-calendar nav-icon">
 
                         </i>
-                        Kalender
+                        Jadwal 
                     </a>
                 </li>
             @endcan

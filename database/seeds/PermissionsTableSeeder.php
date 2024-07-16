@@ -135,6 +135,7 @@ class PermissionsTableSeeder extends Seeder
                 'id' => '31',
                 'title' => 'konten_delete',
             ],
+
         ];
 
         Permission::insert($permissions);

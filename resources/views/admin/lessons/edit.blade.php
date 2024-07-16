@@ -69,6 +69,17 @@
                 <span class="help-block">{{ trans('cruds.lesson.fields.end_time_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="konten">Konten Pelajaran</label>
+                <input class="form-control {{ $errors->has('konten') ? 'is-invalid' : '' }}" type="text"
+                    name="konten" id="konten" value="{{ old('konten', $lesson->konten ) }}">
+                @if ($errors->has('konten'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('konten') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.konten.fields.desc_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

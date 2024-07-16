@@ -4,17 +4,14 @@
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route("admin.users.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
-            </a>
-            <a class="btn btn-success" href="{{ route("admin.users.create") }}?student">
-                {{ trans('global.add') }} New Student
+                Tambah Pengguna
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
+        {{ trans('global.list') }} Pengguna
     </div>
 
     <div class="card-body">
@@ -34,15 +31,15 @@
                         <th>
                             {{ trans('cruds.user.fields.email') }}
                         </th>
-                        <th>
+                        {{-- <th>
                             {{ trans('cruds.user.fields.email_verified_at') }}
-                        </th>
+                        </th> --}}
                         <th>
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
-                        <th>
+                        {{-- <th>
                             {{ trans('cruds.user.fields.class') }}
-                        </th>
+                        </th> --}}
                         <th>
                             &nbsp;
                         </th>
@@ -55,7 +52,7 @@
 
                             </td>
                             <td>
-                                {{ $user->id ?? '' }}
+                                {{ $loop->iteration ?? '' }}
                             </td>
                             <td>
                                 {{ $user->name ?? '' }}
@@ -63,17 +60,17 @@
                             <td>
                                 {{ $user->email ?? '' }}
                             </td>
-                            <td>
+                            {{-- <td>
                                 {{ $user->email_verified_at ?? '' }}
-                            </td>
+                            </td> --}}
                             <td>
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
                             </td>
-                            <td>
+                            {{-- <td>
                                 {{ $user->class->name ?? '' }}
-                            </td>
+                            </td> --}}
                             <td>
                                 @can('user_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
@@ -144,7 +141,7 @@
 @endcan
 
   $.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 1, 'desc' ]],
+    order: [[ 1, 'asc' ]],
     pageLength: 100,
   });
   $('.datatable-User:not(.ajaxTable)').DataTable({ buttons: dtButtons })

@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.user.title_singular') }}
+        Tambah Pengguna
     </div>
 
     <div class="card-body">
@@ -61,7 +61,7 @@
             @else
                 <input type="hidden" name="roles[]" value="4">
             @endif
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="class_id">{{ trans('cruds.user.fields.class') }}</label>
                 <select class="form-control select2 {{ $errors->has('class') ? 'is-invalid' : '' }}" name="class_id" id="class_id">
                     @foreach($classes as $id => $class)
@@ -74,7 +74,7 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.user.fields.class_helper') }}</span>
-            </div>
+            </div> --}}
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}

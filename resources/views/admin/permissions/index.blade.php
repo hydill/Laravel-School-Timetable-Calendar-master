@@ -11,7 +11,7 @@
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.permission.title_singular') }} {{ trans('global.list') }}
+        {{ trans('global.list') }} {{ trans('cruds.permission.title_singular') }} 
     </div>
 
     <div class="card-body">
@@ -115,7 +115,7 @@
 @endcan
 
   $.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 1, 'desc' ]],
+    order: [[ 1, 'asc' ]],
     pageLength: 100,
   });
   $('.datatable-Permission:not(.ajaxTable)').DataTable({ buttons: dtButtons })

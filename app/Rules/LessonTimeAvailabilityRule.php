@@ -36,6 +36,6 @@ class LessonTimeAvailabilityRule implements Rule
      */
     public function message()
     {
-        return 'This time is not available';
+        return 'Jam ini tidak tersedia';
     }
 }

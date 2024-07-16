@@ -26,7 +26,7 @@
                         <th>
                             {{ trans('cruds.konten.fields.desc') }}
                         </th>
-                        <th width="10">
+                        <th width="15%">
                             &nbsp;
                         </th>
                     </tr>
@@ -42,7 +42,7 @@
 
                             <td>
 
-                                {{ $konten->desc ?? '' }}
+                                {{ $konten->desc }}
                             </td>
 
                             <td>

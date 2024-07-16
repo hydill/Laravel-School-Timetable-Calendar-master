@@ -28,14 +28,21 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Lesson::class, 'class_id', 'id');
     }
-
-    public function classUsers()
-    {
-        return $this->hasMany(User::class, 'class_id', 'id');
-    }
-
     public function classKontens()
     {
         return $this->hasMany(KontenClass::class, 'class_id', 'id');
     }
+    public function classSiswa()
+    {
+        return $this->hasMany(Siswa::class, 'class_id', 'id');
+    }
+    public function classManage()
+    {
+        return $this->hasMany(ManageSiswa::class, 'class_id', 'id');
+    }
 }
+
+// public function classUsers()
+// {
+//     return $this->hasMany(User::class, 'class_id', 'id');
+// }

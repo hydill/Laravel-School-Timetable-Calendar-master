@@ -5,15 +5,15 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    Calendar
+                    Jadwal Pembelajaran
                 </div>
 
                 <div class="card-body">
-                    @if(session('status'))
+                    {{-- @if(session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
-                    @endif
+                    @endif --}}
 
                     <table class="table table-bordered">
                         <thead>

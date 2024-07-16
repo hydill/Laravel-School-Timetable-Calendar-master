@@ -13,6 +13,7 @@ use App\SchoolClass;
 use App\Siswa;
 use App\User;
 use Carbon\Carbon;
+use CURLFile;
 use Gate;
 use Illuminate\Contracts\Auth\Access\Gate as AccessGate;
 use Illuminate\Http\Request;
@@ -240,6 +241,15 @@ class SchoolClassesController extends Controller
     {
         $messageTemplate = $request->input('message_content');
 
+        // Ambil data lesson untuk mendapatkan path PDF
+        $lesson = Lesson::findOrFail($id);
+        $pdfPath = $lesson->pdf_path;
+        $pdfFullPath = storage_path('app/' . $pdfPath); // Dapatkan path lengkap file PDF
+
+        if (!file_exists($pdfFullPath)) {
+            return redirect()->back()->with('error', 'File PDF tidak ditemukan.');
+        }
+
         $messages = Message::with('siswa.manageSiswa')->get();
 
         $phoneNumbersAndContents = [];
@@ -264,48 +274,32 @@ class SchoolClassesController extends Controller
 
                     $phoneNumbersAndContents[] = [
                         'phone_number' => $siswa->phone_number,
-                        'message' => $individualMessage
+                        'message' => $individualMessage,
+                        'pdf' => $pdfFullPath // Tambahkan path PDF ke array
                     ];
                 }
             }
         }
-
         foreach ($phoneNumbersAndContents as $data) {
             $phoneNumbers = [$data['phone_number']];
             $messageContent = $data['message'];
+            $pdfFilePath = $data['pdf'];
 
-            // Menambahkan pengiriman file PDF
-            $lesson = Lesson::find($id);
-            $fileUrl = url('storage/' . $lesson->file_path);
-
-            $response = $this->sendFonnteMessage($phoneNumbers, $messageContent, $fileUrl);
+            $response = $this->sendFonnteMessage($phoneNumbers, $messageContent, $pdfFilePath);
 
             if (!$response) {
                 return redirect()->back()->with('error', 'Pesan Gagal Terkirim kepada ' . $data['phone_number']);
             }
         }
-
         return redirect()->back()->with('success', 'Pesan Terkirim');
     }
 
-    private function sendFonnteMessage($phoneNumbers, $messageContent, $fileUrl = null)
+    private function sendFonnteMessage($phoneNumbers, $messageContent, $pdfFilePath)
     {
         $curl = curl_init();
         $token = "TUpmVb#GdgaVZ_xkLh4H";
 
-        $target = implode(',', $phoneNumbers);
-
-        $postData = [
-            'target' => $target,
-            'message' => $messageContent,
-            'delay' => '1',
-            'countryCode' => '62', // optional
-        ];
-
-        if ($fileUrl) {
-            $postData['file'] = $fileUrl;
-            $postData['filename'] = basename($fileUrl); // optional, nama file yang akan tampil di WhatsApp
-        }
+        $target = implode(',', $phoneNumbers); // Gabungkan nomor telepon menjadi satu string
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://api.fonnte.com/send',
@@ -316,13 +310,26 @@ class SchoolClassesController extends Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => $postData,
+            CURLOPT_POSTFIELDS => array(
+                'target' => $target,
+                'message' => $messageContent,
+                'delay' => '1',
+                'countryCode' => '62', //optional
+                'file' => new CURLFile($pdfFilePath), // Mengirim file PDF
+            ),
             CURLOPT_HTTPHEADER => array(
-                "Authorization: $token"
+                "Authorization: $token" // Ganti TOKEN dengan token yang sebenarnya
             ),
         ));
 
         $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+            curl_close($curl);
+            return $error_msg;
+        }
+    
+        // curl_close($curl);
 
         curl_close($curl);
 

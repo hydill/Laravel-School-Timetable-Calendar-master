@@ -22,8 +22,11 @@ class Lesson extends Model
         'weekday',
         'class_id',
         'end_time',
-        'teacher_id',
+        'teacher_id', 
         'start_time',
+        'konten',
+        'pdf_path',
+        'mata_pelajaran',  
         'created_at',
         'updated_at',
         'deleted_at',
@@ -39,6 +42,39 @@ class Lesson extends Model
         '7' => 'Minggu',
     ];
 
+    public function getWeekdayNameAttribute()
+    {
+        $days = [
+            1 => 'Senin',
+            2 => 'Selasa',
+            3 => 'Rabu',
+            4 => 'Kamis',
+            5 => 'Jumat',
+            6 => 'Sabtu',
+            7 => 'Minggu',
+        ];
+        
+        return $days[$this->weekday] ?? 'Unknown';
+    }
+    public function lessonMessage()
+    {
+        return $this->belongsToMany(Message::class);
+    }
+    public function manageSiswa()
+    {
+        return $this->hasOne(ManageSiswa::class, 'lesson_id', 'id');
+    }
+    
+    function class()
+    {
+        return $this->belongsTo(SchoolClass::class, 'class_id');
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id');
+    }
+    
     public function getDifferenceAttribute()
     {
         return Carbon::parse($this->end_time)->diffInMinutes($this->start_time);
@@ -66,15 +102,9 @@ class Lesson extends Model
             $value)->format('H:i:s') : null;
     }
 
-    function class()
-    {
-        return $this->belongsTo(SchoolClass::class, 'class_id');
-    }
 
-    public function teacher()
-    {
-        return $this->belongsTo(User::class, 'teacher_id');
-    }
+    
+
 
     public static function isTimeAvailable($weekday, $startTime, $endTime, $class, $teacher, $lesson)
     {

@@ -13,6 +13,7 @@ class CreateLessonsTable extends Migration
             $table->integer('weekday');
             $table->time('start_time');
             $table->time('end_time');
+            $table->longText('konten')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

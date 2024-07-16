@@ -12,11 +12,12 @@
         "bugsnag/bugsnag-laravel": "^2.2",
         "doctrine/dbal": "^2.11",
         "fideloper/proxy": "^4.2",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.0",
         "laravel/framework": "^8.0",
         "laravel/passport": "^10.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
+        "twilio/sdk": "^8.1",
         "yajra/laravel-datatables-oracle": "^9.7"
     },
     "require-dev": {

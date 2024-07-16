@@ -57,25 +57,21 @@
                             @endforeach
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>
                             {{ trans('cruds.user.fields.class') }}
                         </th>
                         <td>
                             {{ $user->class->name ?? '' }}
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.users.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
-            </div>
+            
         </div>
     </div>
 </div>
-
+{{-- 
 <div class="card">
     <div class="card-header">
         {{ trans('global.relatedData') }}
@@ -92,6 +88,6 @@
             @includeIf('admin.users.relationships.teacherLessons', ['lessons' => $user->teacherLessons])
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
